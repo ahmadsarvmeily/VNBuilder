@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Engine extends Application {
@@ -17,6 +19,19 @@ public class Engine extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        testStructure();
+
+        BorderPane borderPane = new BorderPane();
+
+        Scene gameScene = new Scene(borderPane, 1600,900);
+
+        //TODO: Load title from story.vnb
+        primaryStage.setTitle("Engine");
+        primaryStage.setScene(gameScene);
+        primaryStage.show();
+    }
+
+    private void testStructure() {
         EngineTest.dirExists(novelDir);
         EngineTest.fileExists(storyFile);
         EngineTest.dirExists(assetsDir);
