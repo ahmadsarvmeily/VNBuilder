@@ -1,20 +1,22 @@
 package audio;
 
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-
-import java.io.FileInputStream;
+import javax.sound.sampled.*;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 public abstract class Sfx {
 
+    private static Clip clip;
+
     public static void play(String path) {
         try {
-            InputStream in = new FileInputStream(path);
-            AudioStream audioStream = new AudioStream(in);
-            AudioPlayer.player.start(audioStream);
-        } catch (IOException e) {
+            if(clip != null)
+                clip.stop();
+            clip = AudioSystem.getClip();
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
+            clip.open(inputStream);
+            clip.start();
+        } catch (LineUnavailableException |UnsupportedAudioFileException|IOException e) {
             e.printStackTrace();
         }
     }

@@ -6,7 +6,10 @@ import java.io.IOException;
 
 public abstract class Music {
 
+    //TODO: Reduce music volume when sfx are playing, increase afterwards
+
     private static Clip clip;
+    private static FloatControl gainControl;
 
     public static void play(String path) {
 
@@ -16,12 +19,17 @@ public abstract class Music {
             clip = AudioSystem.getClip();
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
             clip.open(inputStream);
-            FloatControl gainControl = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-10.0f);
+            gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            changeVolume(-25.0f);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (LineUnavailableException|UnsupportedAudioFileException|IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public static void changeVolume(float db) {
+        if(clip != null) {
+            gainControl.setValue(db);
+        }
     }
 }
