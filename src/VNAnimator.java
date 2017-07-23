@@ -12,8 +12,7 @@ public class VNAnimator {
             }
 
             protected void interpolate(double frac) {
-                final int length = content.length();
-                final int n = Math.round(length * (float) frac);
+                final int n = Math.round(content.length() * (float) frac);
                 String speakerTag = speaker.length() > 0 ? "[ "+speaker+" ]\t" : "";
                 lbl.setText(speakerTag+content.substring(0, n));
             }

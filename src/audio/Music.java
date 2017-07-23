@@ -16,6 +16,8 @@ public abstract class Music {
             clip = AudioSystem.getClip();
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
             clip.open(inputStream);
+            FloatControl gainControl = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-10.0f);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (LineUnavailableException|UnsupportedAudioFileException|IOException e) {
             e.printStackTrace();
