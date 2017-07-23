@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -22,11 +23,12 @@ public class Engine extends Application {
     private static final String novelFile = novelDir + "/novel.vnb";
     private static final String assetsDir = novelDir + "/assets";
     private static final String bgDir = assetsDir + "/bg";
-    private static final String modelsDir = assetsDir + "/models";
+    private static final String spriteDir = assetsDir + "/sprites";
     private static final String musicDir = assetsDir + "/music";
     private static final String sfxDir = assetsDir + "/sfx";
 
     private StackPane textPane, backgroundPane;
+    private Pane spritePane;
     private Label text;
     private ImageView background;
 
@@ -46,6 +48,7 @@ public class Engine extends Application {
 
         setupTextPane();
         setupBackgroundPane();
+        setupSpritePane();
         borderPane.setBottom(textPane);
         borderPane.setCenter(backgroundPane);
 
@@ -65,6 +68,17 @@ public class Engine extends Application {
                         continue;
 
                     case "sfx": Sfx.play(sfxDir + "/" + phraseArr[1]);
+                        continue;
+
+                    case "sprite": try {
+                        Image sprite = new Image(new FileInputStream(spriteDir + "/" + phraseArr[1]));
+                        ImageView spriteView = new ImageView(sprite);
+                        spriteView.setX(Double.valueOf(phraseArr[2]));
+                        spriteView.setY(Double.valueOf(phraseArr[3]));
+                        spritePane.getChildren().add(spriteView);
+                    } catch (FileNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
                         continue;
 
                     case "text": VNAnimator.animateText(text,"", phraseArr[1]);
@@ -100,12 +114,17 @@ public class Engine extends Application {
         backgroundPane.setAlignment(Pos.TOP_CENTER);
     }
 
+    private void setupSpritePane() {
+        spritePane = new Pane();
+        backgroundPane.getChildren().add(spritePane);
+    }
+
     private void testStructure() {
         EngineTest.dirExists(novelDir);
         EngineTest.fileExists(novelFile);
         EngineTest.dirExists(assetsDir);
         EngineTest.dirExists(bgDir);
-        EngineTest.dirExists(modelsDir);
+        EngineTest.dirExists(spriteDir);
         EngineTest.dirExists(musicDir);
         EngineTest.dirExists(sfxDir);
     }
