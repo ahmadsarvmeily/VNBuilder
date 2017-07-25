@@ -85,6 +85,7 @@ public class Engine extends Application {
                         advance = true;
                         break;
                     case "speech": VNAnimator.animateText(text, words[1], words[2]);
+                        if(words.length == 4) Sfx.play(sfxDir + "/" + words[3]);
 
                         advance = true;
                         break;
