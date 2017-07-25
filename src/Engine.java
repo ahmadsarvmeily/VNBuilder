@@ -27,7 +27,8 @@ public class Engine extends Application {
     private static final String musicDir = assetsDir + "/music";
     private static final String sfxDir = assetsDir + "/sfx";
 
-    private StackPane textPane, backgroundPane;
+    private Pane backgroundPane;
+    private StackPane textPane;
     private Pane spritePane;
     private Label text;
     private ImageView background;
@@ -95,6 +96,9 @@ public class Engine extends Application {
                             ex.printStackTrace();
                         }
                         advance = true;
+                        break;
+                    case "shake": VNAnimator.shakeImage(background);
+                        advance = true;
                 }
             }
         });
@@ -112,8 +116,7 @@ public class Engine extends Application {
         background = new ImageView();
         background.setFitHeight(750);
         background.setFitWidth(1600);
-        backgroundPane = new StackPane(background);
-        backgroundPane.setAlignment(Pos.TOP_CENTER);
+        backgroundPane = new Pane(background);
     }
 
     private void setupSpritePane() {
