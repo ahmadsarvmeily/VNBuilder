@@ -82,11 +82,11 @@ public class Engine extends Application {
                         continue;
 
                     case "text": VNAnimator.animateText(text,"", words[1]);
+                        if(words.length == 3) Sfx.play(sfxDir + "/" + words[2]);
                         advance = true;
                         break;
                     case "speech": VNAnimator.animateText(text, words[1], words[2]);
                         if(words.length == 4) Sfx.play(sfxDir + "/" + words[3]);
-
                         advance = true;
                         break;
                     case "bg": try {
