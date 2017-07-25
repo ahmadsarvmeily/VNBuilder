@@ -60,35 +60,36 @@ public class Engine extends Application {
             boolean advance = false;
             while(novel.hasPhrases() && !advance) {
                 String phrase = novel.nextPhrase();
-                String[] phraseArr = phrase.split("\\|");
-                String keyword = phraseArr[0];
+                String[] words = phrase.split("\\|");
+                String keyword = words[0];
 
                 switch (keyword) {
-                    case "music": Music.play(musicDir + "/" + phraseArr[1]);
+                    case "music": Music.play(musicDir + "/" + words[1]);
                         continue;
 
-                    case "sfx": Sfx.play(sfxDir + "/" + phraseArr[1]);
+                    case "sfx": Sfx.play(sfxDir + "/" + words[1]);
                         continue;
 
                     case "sprite": try {
-                        Image sprite = new Image(new FileInputStream(spriteDir + "/" + phraseArr[1]));
+                        Image sprite = new Image(new FileInputStream(spriteDir + "/" + words[1]));
                         ImageView spriteView = new ImageView(sprite);
-                        spriteView.setX(Double.valueOf(phraseArr[2]));
-                        spriteView.setY(Double.valueOf(phraseArr[3]));
+                        spriteView.setX(Double.valueOf(words[2]));
+                        spriteView.setY(Double.valueOf(words[3]));
                         spritePane.getChildren().add(spriteView);
                     } catch (FileNotFoundException ex) {
                         ex.printStackTrace();
                     }
                         continue;
 
-                    case "text": VNAnimator.animateText(text,"", phraseArr[1]);
+                    case "text": VNAnimator.animateText(text,"", words[1]);
                         advance = true;
                         break;
-                    case "speech": VNAnimator.animateText(text, phraseArr[1], phraseArr[2]);
+                    case "speech": VNAnimator.animateText(text, words[1], words[2]);
+
                         advance = true;
                         break;
                     case "bg": try {
-                            background.setImage(new Image(new FileInputStream(bgDir + "/" + phraseArr[1])));
+                            background.setImage(new Image(new FileInputStream(bgDir + "/" + words[1])));
                         } catch (FileNotFoundException ex) {
                             ex.printStackTrace();
                         }
