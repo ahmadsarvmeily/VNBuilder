@@ -9,18 +9,37 @@ public abstract class Music {
     private static Clip clip;
 
     public static void play(String path) {
+        if(clip != null)
+            fadeInto(path);
+        else fadeIn(path);
+    }
 
+    private static void fadeInto(String path) {
+        Clip into = getClipFromPath(path);
+        new FadeInto(clip,into,10000,Clip.LOOP_CONTINUOUSLY).start();
+        clip = into;
+    }
+
+    private static void fadeIn(String path) {
+        Clip in = getClipFromPath(path);
+        clip = in;
+        new FadeIn(in,5000,Clip.LOOP_CONTINUOUSLY).start();
+    }
+
+    public static void fadeOut() {
+        new FadeOut(clip,5000).start();
+    }
+
+    private static Clip getClipFromPath(String path) {
+        Clip clip = null;
         try {
-            if(clip != null)
-                clip.stop();
             clip = AudioSystem.getClip();
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
-            clip.open(inputStream);
-            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-25.0f);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            File file = new File(path);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+            clip.open(audioInputStream);
         } catch (LineUnavailableException|UnsupportedAudioFileException|IOException e) {
             e.printStackTrace();
         }
+        return clip;
     }
 }
