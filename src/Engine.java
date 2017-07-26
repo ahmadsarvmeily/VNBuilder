@@ -85,7 +85,7 @@ public class Engine extends Application {
                     case "shake": VNAnimator.shakeImage(background);
                         continue;
 
-                    case "fade out music": Music.fadeOut();
+                    case "fade out music": Music.fadeOut(5000);
                         continue;
 
                     case "text": VNAnimator.animateText(text,"", words[1]);
