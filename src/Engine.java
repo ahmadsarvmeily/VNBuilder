@@ -1,3 +1,5 @@
+import animation.ImageAnimator;
+import animation.TextAnimator;
 import audio.MusicPlayer;
 import audio.SfxPlayer;
 import javafx.application.Application;
@@ -30,6 +32,9 @@ public class Engine extends Application {
     private MusicPlayer musicPlayer;
     private SfxPlayer sfxPlayer;
 
+    private TextAnimator textAnimator;
+    private ImageAnimator imageAnimator;
+
     private Pane backgroundPane;
     private StackPane textPane;
     private Pane spritePane;
@@ -46,6 +51,8 @@ public class Engine extends Application {
 
         musicPlayer = new MusicPlayer();
         sfxPlayer = new SfxPlayer();
+        textAnimator = new TextAnimator();
+        imageAnimator = new ImageAnimator();
 
         BorderPane borderPane = new BorderPane();
 
@@ -88,17 +95,17 @@ public class Engine extends Application {
                     }
                         continue;
 
-                    case "shake": VNAnimator.shakeImage(background);
+                    case "shake": imageAnimator.shake(background);
                         continue;
 
                     case "fade out music": musicPlayer.fadeOut();
                         continue;
 
-                    case "text": VNAnimator.animateText(text,"", words[1]);
+                    case "text": textAnimator.animate(text,"", words[1]);
                         if(words.length == 3) sfxPlayer.play(sfxDir + "/" + words[2]);
                         advance = true;
                         break;
-                    case "speech": VNAnimator.animateText(text, words[1], words[2]);
+                    case "speech": textAnimator.animate(text, words[1], words[2]);
                         if(words.length == 4) sfxPlayer.play(sfxDir + "/" + words[3]);
                         advance = true;
                         break;
