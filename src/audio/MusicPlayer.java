@@ -6,7 +6,7 @@ public class MusicPlayer extends VNAudioPlayer {
     public void play(String path) {
         if(clip != null)
             fadeInto(path,8000);
-        else fadeIn(path,5000);
+        else fadeIn(path,1000);
     }
 
     public void fadeOut() {
