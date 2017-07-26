@@ -1,8 +1,9 @@
 package audio;
 
-public abstract class Sfx extends VNAudioPlayer {
+public class SfxPlayer extends VNAudioPlayer {
 
-    public static void play(String path) {
+    @Override
+    public void play(String path) {
         if(clip != null)
             clip.stop();
         clip = getClipFromPath(path);

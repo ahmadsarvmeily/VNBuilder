@@ -1,5 +1,5 @@
-import audio.Music;
-import audio.Sfx;
+import audio.MusicPlayer;
+import audio.SfxPlayer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,6 +27,9 @@ public class Engine extends Application {
     private static final String musicDir = assetsDir + "/music";
     private static final String sfxDir = assetsDir + "/sfx";
 
+    private MusicPlayer musicPlayer;
+    private SfxPlayer sfxPlayer;
+
     private Pane backgroundPane;
     private StackPane textPane;
     private Pane spritePane;
@@ -40,6 +43,9 @@ public class Engine extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         testStructure();
+
+        musicPlayer = new MusicPlayer();
+        sfxPlayer = new SfxPlayer();
 
         BorderPane borderPane = new BorderPane();
 
@@ -65,10 +71,10 @@ public class Engine extends Application {
                 String keyword = words[0];
 
                 switch (keyword) {
-                    case "music": Music.play(musicDir + "/" + words[1]);
+                    case "music": musicPlayer.play(musicDir + "/" + words[1]);
                         continue;
 
-                    case "sfx": Sfx.play(sfxDir + "/" + words[1]);
+                    case "sfx": sfxPlayer.play(sfxDir + "/" + words[1]);
                         continue;
 
                     case "sprite": try {
@@ -85,15 +91,15 @@ public class Engine extends Application {
                     case "shake": VNAnimator.shakeImage(background);
                         continue;
 
-                    case "fade out music": Music.fadeOut(5000);
+                    case "fade out music": musicPlayer.fadeOut();
                         continue;
 
                     case "text": VNAnimator.animateText(text,"", words[1]);
-                        if(words.length == 3) Sfx.play(sfxDir + "/" + words[2]);
+                        if(words.length == 3) sfxPlayer.play(sfxDir + "/" + words[2]);
                         advance = true;
                         break;
                     case "speech": VNAnimator.animateText(text, words[1], words[2]);
-                        if(words.length == 4) Sfx.play(sfxDir + "/" + words[3]);
+                        if(words.length == 4) sfxPlayer.play(sfxDir + "/" + words[3]);
                         advance = true;
                         break;
                     case "bg": try {

@@ -6,7 +6,9 @@ import java.io.IOException;
 
 abstract class VNAudioPlayer {
 
-    static Clip clip;
+    Clip clip;
+
+    public abstract void play(String path);
 
     static Clip getClipFromPath(String path) {
         Clip clip = null;
@@ -21,19 +23,19 @@ abstract class VNAudioPlayer {
         return clip;
     }
 
-    static void fadeInto(String path, int durationMillis) {
+    void fadeInto(String path, int durationMillis) {
         Clip into = getClipFromPath(path);
         new FadeInto(clip,into,durationMillis,Clip.LOOP_CONTINUOUSLY).start();
         clip = into;
     }
 
-    static void fadeIn(String path, int durationMillis) {
+    void fadeIn(String path, int durationMillis) {
         Clip in = getClipFromPath(path);
         clip = in;
         new FadeIn(in,durationMillis,Clip.LOOP_CONTINUOUSLY).start();
     }
 
-    public static void fadeOut(int durationMillis) {
+    void fadeOut(int durationMillis) {
         new FadeOut(clip,durationMillis).start();
     }
 }
