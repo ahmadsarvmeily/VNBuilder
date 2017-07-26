@@ -85,6 +85,9 @@ public class Engine extends Application {
                     case "shake": VNAnimator.shakeImage(background);
                         continue;
 
+                    case "fade out music": Music.fadeOut();
+                        continue;
+
                     case "text": VNAnimator.animateText(text,"", words[1]);
                         if(words.length == 3) Sfx.play(sfxDir + "/" + words[2]);
                         advance = true;
@@ -102,7 +105,6 @@ public class Engine extends Application {
                         break;
 
                     case "advance": advance = true;
-                        break;
                 }
             }
         });
