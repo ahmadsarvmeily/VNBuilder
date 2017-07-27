@@ -24,7 +24,7 @@ public class FadeIn extends Thread {
         final float dGain = Math.abs(finalGain-initialGain);
 
         clip.loop(loops);
-        for(float newGain = initialGain; newGain < finalGain; newGain++) {
+        for(float newGain = initialGain; newGain < finalGain; newGain+=1.0f) {
             gainControl.setValue(newGain);
             try {
                 Thread.sleep((long)(durationMillis/dGain));

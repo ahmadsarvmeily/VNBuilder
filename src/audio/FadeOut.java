@@ -21,7 +21,7 @@ public class FadeOut extends Thread {
         final float finalGain = -80.0f;
         final float dGain = Math.abs(finalGain-initialGain);
 
-        for(float newGain = initialGain; newGain > finalGain; newGain--) {
+        for(float newGain = initialGain; newGain > finalGain; newGain-=1.0f) {
             gainControl.setValue(newGain);
             try {
                 Thread.sleep((long)(durationMillis/dGain));
