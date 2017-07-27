@@ -68,6 +68,7 @@ public class Engine extends Application {
 
         primaryStage.setTitle(novel.getTitle());
         primaryStage.setScene(gameScene);
+        primaryStage.setOnCloseRequest(e -> System.exit(0));
         primaryStage.show();
 
         gameScene.setOnMouseClicked(e -> {
