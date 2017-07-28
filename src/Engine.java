@@ -18,6 +18,8 @@ import test.EngineTest;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Engine extends Application {
 
@@ -34,6 +36,8 @@ public class Engine extends Application {
 
     private TextAnimator textAnimator;
     private ImageAnimator imageAnimator;
+
+    private Map<String,ImageView> spriteMap;
 
     private Pane backgroundPane;
     private StackPane textPane;
@@ -53,6 +57,8 @@ public class Engine extends Application {
         sfxPlayer = new SfxPlayer();
         textAnimator = new TextAnimator();
         imageAnimator = new ImageAnimator();
+
+        spriteMap = new HashMap<>();
 
         BorderPane borderPane = new BorderPane();
 
@@ -85,15 +91,24 @@ public class Engine extends Application {
                     case "sfx": sfxPlayer.play(sfxDir + "/" + words[1]);
                         continue;
 
-                    case "sprite": try {
+                    case "place sprite": try {
                         Image sprite = new Image(new FileInputStream(spriteDir + "/" + words[1]));
                         ImageView spriteView = new ImageView(sprite);
-                        spriteView.setX(Double.valueOf(words[2]));
-                        spriteView.setY(Double.valueOf(words[3]));
+                        spriteView.setX(Double.valueOf(words[3]));
+                        spriteView.setY(Double.valueOf(words[4]));
                         spritePane.getChildren().add(spriteView);
+                        spriteMap.put(words[2],spriteView);
                     } catch (FileNotFoundException ex) {
                         ex.printStackTrace();
                     }
+                        continue;
+
+                    case "move sprite":
+                        ImageView spriteToMove = spriteMap.get(words[1]);
+                        int xNew = Integer.parseInt(words[2]);
+                        int yNew = Integer.parseInt(words[3]);
+                        spriteToMove.setX(xNew);
+                        spriteToMove.setY(yNew);
                         continue;
 
                     case "shake": imageAnimator.shake(background);
