@@ -111,6 +111,11 @@ public class Engine extends Application {
                         spriteToMove.setY(yNew);
                         continue;
 
+                    case "remove sprite":
+                        ImageView spriteToRemove = spriteMap.get(words[1]);
+                        spritePane.getChildren().remove(spriteToRemove);
+                        continue;
+
                     case "shake": imageAnimator.shake(background);
                         continue;
 
