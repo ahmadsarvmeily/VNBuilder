@@ -20,7 +20,7 @@ public class FadeIn extends Thread {
     @Override
     public void run() {
         final float initialGain = -80.0f;
-        final float finalGain = -25.0f;
+        final float finalGain = -20.0f;
         final float dGain = Math.abs(finalGain-initialGain);
 
         clip.loop(loops);

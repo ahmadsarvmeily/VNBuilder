@@ -8,7 +8,11 @@ public class MusicPlayer extends VNAudioPlayer {
     public void play(String path) {
         if(clip != null)
             fadeInto(path,5000);
-        else getClipFromPath(path).loop(Clip.LOOP_CONTINUOUSLY);
+        else {
+            clip = getClipFromPath(path);
+            setVolume(-20.0f);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
     }
 
     public void fadeOut() {
