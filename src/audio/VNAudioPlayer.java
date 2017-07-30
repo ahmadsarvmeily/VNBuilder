@@ -38,4 +38,9 @@ abstract class VNAudioPlayer {
     void fadeOut(int durationMillis) {
         new FadeOut(clip,durationMillis).start();
     }
+
+    void setVolume(float db) {
+        FloatControl gainControl = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(db);
+    }
 }
