@@ -96,6 +96,8 @@ public class Engine extends Application {
                         ImageView spriteView = new ImageView(sprite);
                         spriteView.setX(Double.valueOf(words[3]));
                         spriteView.setY(Double.valueOf(words[4]));
+                        spriteView.setScaleX(Double.valueOf(words[5]));
+                        spriteView.setScaleY(Double.valueOf(words[5]));
                         int index = spritePane.getChildren().indexOf(textPane);
                         spritePane.getChildren().add(index,spriteView);
                         spriteMap.put(words[2],spriteView);
@@ -115,6 +117,12 @@ public class Engine extends Application {
                     case "remove sprite":
                         ImageView spriteToRemove = spriteMap.get(words[1]);
                         spritePane.getChildren().remove(spriteToRemove);
+                        continue;
+
+                    case "scale sprite":
+                        ImageView spriteToScale = spriteMap.get(words[1]);
+                        spriteToScale.setScaleX(Double.valueOf(words[2]));
+                        spriteToScale.setScaleY(Double.valueOf(words[2]));
                         continue;
 
                     case "shake": imageAnimator.shake(background);
