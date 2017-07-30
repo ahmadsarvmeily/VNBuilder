@@ -40,6 +40,7 @@ public class Engine extends Application {
     private Map<String,ImageView> spriteMap;
 
     private Pane backgroundPane, spritePane, characterNamePane;
+    private StackPane textPane;
     private Label text, characterName;
     private ImageView background;
 
@@ -95,7 +96,8 @@ public class Engine extends Application {
                         ImageView spriteView = new ImageView(sprite);
                         spriteView.setX(Double.valueOf(words[3]));
                         spriteView.setY(Double.valueOf(words[4]));
-                        spritePane.getChildren().add(spriteView);
+                        int index = spritePane.getChildren().indexOf(textPane);
+                        spritePane.getChildren().add(index,spriteView);
                         spriteMap.put(words[2],spriteView);
                     } catch (FileNotFoundException ex) {
                         ex.printStackTrace();
@@ -152,7 +154,7 @@ public class Engine extends Application {
         text.setWrapText(true);
         text.setPadding(new Insets(10,0,40,40));
         text.setTextFill(Color.WHITE);
-        StackPane textPane = new StackPane(text);
+        textPane = new StackPane(text);
         textPane.setBackground(new Background(new BackgroundFill(Color.color(0,0,0,0.7), new CornerRadii(10), new Insets(0,0,0,0))));
         textPane.setLayoutY(750);
         textPane.setPrefSize(1600,150);
