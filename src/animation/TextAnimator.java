@@ -6,7 +6,7 @@ import javafx.util.Duration;
 
 public class TextAnimator extends VNAnimator {
 
-    public void animate(Label lbl, String speaker, String content) {
+    public void animate(Label lbl, String content) {
         if(currentAnimation != null) currentAnimation.stop();
 
         currentAnimation = new Transition() {
@@ -16,8 +16,7 @@ public class TextAnimator extends VNAnimator {
             @Override
             protected void interpolate(double frac) {
                 final int n = Math.round(content.length() * (float) frac);
-                String speakerTag = speaker.length() > 0 ? "[ "+speaker+" ]\t" : "";
-                lbl.setText(speakerTag+content.substring(0, n));
+                lbl.setText(content.substring(0, n));
             }
         };
         currentAnimation.play();
