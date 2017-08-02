@@ -2,7 +2,7 @@ package test;
 
 import java.io.File;
 
-public abstract class EngineTest {
+public abstract class StructureTest {
 
     public static void dirExists(String dirName) {
         File dir = new File(dirName);
