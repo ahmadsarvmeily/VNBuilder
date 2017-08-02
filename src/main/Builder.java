@@ -1,3 +1,5 @@
+package main;
+
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -27,7 +29,7 @@ public class Builder extends Application {
     }
 
     private void setupLaunchMenu(Stage stage) {
-        Button newVNButton = new Button("New Visual Novel");
+        Button newVNButton = new Button("New Visual main.Novel");
         newVNButton.setOnAction(e -> {
             //TODO: [LOW] Open file explorer to choose project root/create project files
             stage.hide();
