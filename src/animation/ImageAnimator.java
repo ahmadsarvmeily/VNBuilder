@@ -9,6 +9,12 @@ import javafx.util.Duration;
 
 public class ImageAnimator extends VNAnimator {
 
+    private static ImageAnimator imageAnimator;
+
+    private ImageAnimator() {
+        imageAnimator = this;
+    }
+
     public void shake(ImageView imageView) {
         final double x = imageView.getX()+imageView.getFitWidth()/2;
         final double y = imageView.getY()+imageView.getFitHeight()/2;
@@ -19,5 +25,12 @@ public class ImageAnimator extends VNAnimator {
         Path path = new Path(origin,topRight,bottomLeft,topRight,bottomLeft,backToOrigin);
         currentAnimation = new PathTransition(Duration.millis(400),path,imageView);
         currentAnimation.play();
+    }
+
+    public static ImageAnimator getInstance() {
+        if(imageAnimator == null) {
+            imageAnimator = new ImageAnimator();
+        }
+        return imageAnimator;
     }
 }

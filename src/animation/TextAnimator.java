@@ -6,6 +6,12 @@ import javafx.util.Duration;
 
 public class TextAnimator extends VNAnimator {
 
+    private static TextAnimator textAnimator;
+
+    private TextAnimator() {
+        textAnimator = this;
+    }
+
     public void animate(Label lbl, String content) {
         if(currentAnimation != null) currentAnimation.stop();
 
@@ -20,5 +26,12 @@ public class TextAnimator extends VNAnimator {
             }
         };
         currentAnimation.play();
+    }
+
+    public static TextAnimator getInstance() {
+        if(textAnimator == null) {
+            textAnimator = new TextAnimator();
+        }
+        return textAnimator;
     }
 }
