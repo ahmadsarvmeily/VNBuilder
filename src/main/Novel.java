@@ -1,3 +1,5 @@
+package main;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
@@ -8,11 +10,11 @@ class Novel {
 
     private File file;
     private String title;
-    private Queue<String> phrases;
+    private Queue<String> lines;
 
     Novel(String fileName) {
         file = new File(fileName);
-        phrases = new LinkedList<>();
+        lines = new LinkedList<>();
         load();
     }
 
@@ -29,7 +31,7 @@ class Novel {
                         break;
                     //Other non-story related info goes here
 
-                    default: phrases.add(line);
+                    default: lines.add(line);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -38,12 +40,12 @@ class Novel {
 
     }
 
-    boolean hasPhrases() {
-        return !phrases.isEmpty();
+    boolean hasLines() {
+        return !lines.isEmpty();
     }
 
-    String nextPhrase() {
-        return phrases.remove();
+    String nextLine() {
+        return lines.remove();
     }
 
     String getTitle() {
