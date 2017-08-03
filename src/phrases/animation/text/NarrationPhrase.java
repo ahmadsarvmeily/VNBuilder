@@ -18,6 +18,6 @@ public class NarrationPhrase extends TextAnimationPhrase {
     public void execute() {
         super.execute();
         characterNamePane.setVisible(false);
-        Engine.advance();
+        Engine.pauseExecution();
     }
 }

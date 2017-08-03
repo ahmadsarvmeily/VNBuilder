@@ -29,6 +29,6 @@ public class ChangeBackgroundPhrase extends Phrase {
     public void execute() {
         backgroundView.setImage(image);
 
-        Engine.advance();
+        Engine.pauseExecution();
     }
 }

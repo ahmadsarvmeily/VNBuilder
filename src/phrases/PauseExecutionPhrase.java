@@ -2,10 +2,10 @@ package phrases;
 
 import main.Engine;
 
-public class AdvancePhrase extends Phrase {
+public class PauseExecutionPhrase extends Phrase {
 
     @Override
     public void execute() {
-        Engine.advance();
+        Engine.pauseExecution();
     }
 }

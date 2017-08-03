@@ -22,7 +22,7 @@ public abstract class Phrase {
             args = words.subList(1,words.size());
 
         switch (command) {
-            case "advance": return new AdvancePhrase();
+            case "pause": return new PauseExecutionPhrase();
 
             case "music": return new PlayMusicPhrase(args);
 

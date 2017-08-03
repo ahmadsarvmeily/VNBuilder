@@ -25,6 +25,6 @@ public class SpeechPhrase extends TextAnimationPhrase {
         super.execute();
         characterNameLabel.setText(speaker);
         characterNamePane.setVisible(true);
-        Engine.advance();
+        Engine.pauseExecution();
     }
 }
