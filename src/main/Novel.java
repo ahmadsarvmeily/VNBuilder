@@ -1,5 +1,7 @@
 package main;
 
+import phrases.Phrase;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
@@ -11,6 +13,7 @@ class Novel {
     private File file;
     private String title;
     private Queue<String> lines;
+    private boolean pauseExecution;
 
     Novel(String fileName) {
         file = new File(fileName);
@@ -40,15 +43,30 @@ class Novel {
 
     }
 
-    boolean hasLines() {
+    void advance() {
+        pauseExecution = false;
+        while(hasLines() && !pauseExecution) {
+            String line = nextLine();
+            Phrase nextPhrase = Phrase.createPhrase(line);
+            if(nextPhrase != null) {
+                nextPhrase.execute();
+            }
+        }
+    }
+
+    private boolean hasLines() {
         return !lines.isEmpty();
     }
 
-    String nextLine() {
+    private String nextLine() {
         return lines.remove();
     }
 
     String getTitle() {
         return title;
+    }
+
+    void pauseExecution() {
+        pauseExecution = true;
     }
 }

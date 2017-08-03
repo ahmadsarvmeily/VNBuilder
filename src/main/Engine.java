@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import phrases.Phrase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +24,7 @@ public class Engine extends Application {
     private static StackPane textPane;
     private static Label textLabel, characterNameLabel;
     private static ImageView backgroundView;
-    private static boolean advance;
+    private static Novel novel;
 
     public static void main(String[] args) {
         launch(args);
@@ -48,23 +47,14 @@ public class Engine extends Application {
 
         Scene gameScene = new Scene(rootPane, 1600,900);
 
-        Novel novel = new Novel(Directories.getNovelFile());
+        novel = new Novel(Directories.getNovelFile());
 
         primaryStage.setTitle(novel.getTitle());
         primaryStage.setScene(gameScene);
         primaryStage.setOnCloseRequest(e -> System.exit(0));
         primaryStage.show();
 
-        gameScene.setOnMouseClicked(e -> {
-            advance = false;
-            while(novel.hasLines() && !advance) {
-                String line = novel.nextLine();
-                Phrase nextPhrase = Phrase.createPhrase(line);
-                if(nextPhrase != null) {
-                    nextPhrase.execute();
-                }
-            }
-        });
+        gameScene.setOnMouseClicked(event -> novel.advance());
     }
 
     private void setupTextPane() {
@@ -138,7 +128,7 @@ public class Engine extends Application {
         return textLabel;
     }
 
-    public static void advance() {
-        advance = true;
+    public static void pauseExecution() {
+        novel.pauseExecution();
     }
 }
