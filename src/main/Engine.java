@@ -55,6 +55,14 @@ public class Engine extends Application {
         primaryStage.show();
 
         gameScene.setOnMouseClicked(event -> novel.advance());
+
+        gameScene.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case DOWN: novel.advance(); break;
+
+                case UP: //TODO: show text history
+            }
+        });
     }
 
     private void setupTextPane() {
