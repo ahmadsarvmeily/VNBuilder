@@ -24,7 +24,7 @@ public abstract class Phrase {
         switch (command) {
             case "pause": return new PauseExecutionPhrase();
 
-            //case "music": return new PlayMusicPhrase(args);
+            case "music": return new PlayMusicPhrase(args);
 
             case "sfx": return new SfxPhrase(args);
 
@@ -38,7 +38,7 @@ public abstract class Phrase {
 
             case "shake": return new ImageShakeAnimationPhrase();
 
-            //case "fade out music": return new FadeMusicPhrase();
+            case "fade out music": return new FadeMusicPhrase();
 
             case "text": return new NarrationPhrase(args);
 
