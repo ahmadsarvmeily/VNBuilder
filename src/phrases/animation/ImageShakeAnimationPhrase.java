@@ -1,6 +1,7 @@
 package phrases.animation;
 
 import animation.ImageAnimator;
+import engine.ui.VNEngineUI;
 import javafx.scene.image.ImageView;
 import engine.Engine;
 import phrases.Phrase;
@@ -11,7 +12,7 @@ public class ImageShakeAnimationPhrase extends Phrase {
     private ImageAnimator imageAnimator;
 
     public ImageShakeAnimationPhrase() {
-        backgroundView = Engine.getBackgroundView();
+        backgroundView = VNEngineUI.getBackgroundView();
         imageAnimator = ImageAnimator.getInstance();
     }
 

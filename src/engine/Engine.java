@@ -1,33 +1,19 @@
 package engine;
 
+import engine.ui.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import novel.Novel;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static engine.Directories.testStructure;
 
 public class Engine extends Application {
 
-    private static Map<String,ImageView> spriteMap;
-    private static Pane backgroundPane, spritePane, characterNamePane;
-    private static StackPane textPane, textLogPane;
-    private static ScrollPane textLogScrollPane;
-    private static VBox textLogContentPane;
-    private static Label textLabel, characterNameLabel;
-    private static ImageView backgroundView;
     private static Novel novel;
     private static boolean gameIsPaused;
 
@@ -40,19 +26,10 @@ public class Engine extends Application {
         testStructure();
 
         gameIsPaused = false;
-        spriteMap = new HashMap<>();
 
         StackPane rootPane = new StackPane();
-        rootPane.setBackground(new Background(new BackgroundFill(Color.BLACK,CornerRadii.EMPTY,Insets.EMPTY)));
-
-        setupBackgroundPane();
-        setupSpritePane();
-        setupTextPane();
-        setupCharacterNamePane();
-        setupTextLogPane();
-        rootPane.getChildren().add(backgroundPane);
-
-        Scene gameScene = new Scene(rootPane, 1600,900);
+        VNEngineUI.setup(rootPane);
+        Scene gameScene = new Scene(rootPane,1600,900);
 
         novel = new Novel(Directories.getNovelFile());
 
@@ -74,116 +51,21 @@ public class Engine extends Application {
         });
     }
 
-    private void requestNovelAdvance() {
-        if(!gameIsPaused) novel.advance();
-    }
-
     private void showTextLog() {
         gameIsPaused = true;
+        VNTextLogPane textLogPane = VNEngineUI.getTextLogPane();
         textLogPane.setVisible(true);
-        textLogContentPane.requestFocus();
+        textLogPane.getContentPane().requestFocus();
     }
 
     private void hideTextLog() {
         gameIsPaused = false;
+        VNTextLogPane textLogPane = VNEngineUI.getTextLogPane();
         textLogPane.setVisible(false);
     }
 
-    private void setupTextPane() {
-        textLabel = new Label("Start game");
-        textLabel.setFont(Font.font(32));
-        textLabel.setWrapText(true);
-        textLabel.setPadding(new Insets(10,0,40,40));
-        textLabel.setTextFill(Color.WHITE);
-        textPane = new StackPane(textLabel);
-        textPane.setBackground(new Background(new BackgroundFill(Color.color(0,0,0,0.7), new CornerRadii(10), new Insets(0,0,0,0))));
-        textPane.setLayoutY(750);
-        textPane.setPrefSize(1600,150);
-        textPane.setAlignment(Pos.TOP_LEFT);
-        spritePane.getChildren().add(textPane);
-    }
-
-    private void setupCharacterNamePane() {
-        characterNameLabel = new Label();
-        characterNameLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD,36));
-        characterNameLabel.setPadding(new Insets(0,25,0,25));
-        characterNameLabel.setTextFill(Color.WHITE);
-        characterNamePane = new Pane(characterNameLabel);
-        characterNamePane.setBackground(new Background(new BackgroundFill(Color.color(0,0,0,0.7), new CornerRadii(10), Insets.EMPTY)));
-        characterNamePane.setLayoutX(5);
-        characterNamePane.setLayoutY(705);
-        characterNamePane.setVisible(false);
-        spritePane.getChildren().add(characterNamePane);
-    }
-
-    private void setupBackgroundPane() {
-        backgroundView = new ImageView();
-        backgroundView.setFitHeight(900);
-        backgroundView.setFitWidth(1600);
-        backgroundPane = new Pane(backgroundView);
-    }
-
-    private void setupSpritePane() {
-        spritePane = new Pane();
-        backgroundPane.getChildren().add(spritePane);
-    }
-
-    private void setupTextLogPane() {
-        textLogPane = new StackPane();
-        textLogContentPane = new VBox(20);
-        textLogScrollPane = new ScrollPane(textLogContentPane);
-        textLogScrollPane.vvalueProperty().bind(textLogContentPane.heightProperty());
-        textLogScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        textLogScrollPane.setPannable(true);
-        textLogScrollPane.setStyle("-fx-background: transparent;\n -fx-background-color: transparent");
-        textLogScrollPane.setPadding(new Insets(40,40,40,40));
-        textLogPane.getChildren().add(textLogScrollPane);
-        textLogPane.setBackground(new Background(new BackgroundFill(Color.color(0,0,0,0.7), new CornerRadii(10), Insets.EMPTY)));
-        textLogPane.setLayoutX(40);
-        textLogPane.setLayoutY(-10);
-        textLogPane.setPrefSize(1520,710);
-        textLogPane.setVisible(false);
-        spritePane.getChildren().add(textLogPane);
-    }
-
-    public static ImageView getBackgroundView() {
-        return backgroundView;
-    }
-
-    public static Pane getSpritePane() {
-        return spritePane;
-    }
-
-    public static Pane getCharacterNamePane() {
-        return characterNamePane;
-    }
-
-    public static StackPane getTextPane() {
-        return textPane;
-    }
-
-    public static VBox getTextLogContentPane() {
-        return textLogContentPane;
-    }
-
-    public static ScrollPane getTextLogScrollPane() {
-        return textLogScrollPane;
-    }
-
-    public static ImageView getSprite(String spriteName) {
-        return spriteMap.get(spriteName);
-    }
-
-    public static Map<String,ImageView> getSpriteMap() {
-        return spriteMap;
-    }
-
-    public static Label getCharacterNameLabel() {
-        return characterNameLabel;
-    }
-
-    public static Label getTextLabel() {
-        return textLabel;
+    private void requestNovelAdvance() {
+        if(!gameIsPaused) novel.advance();
     }
 
     public static void pauseExecution() {

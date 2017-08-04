@@ -1,5 +1,6 @@
 package phrases.sprite;
 
+import engine.ui.VNEngineUI;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import engine.Engine;
@@ -11,7 +12,7 @@ abstract class SpritePhrase extends Phrase {
     Pane spritePane, textPane;
 
     SpritePhrase() {
-        spritePane = Engine.getSpritePane();
-        textPane = Engine.getTextPane();
+        spritePane = VNEngineUI.getSpritePane();
+        textPane = VNEngineUI.getTextPane();
     }
 }

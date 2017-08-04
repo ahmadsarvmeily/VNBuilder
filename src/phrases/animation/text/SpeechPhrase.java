@@ -1,5 +1,6 @@
 package phrases.animation.text;
 
+import engine.ui.VNEngineUI;
 import javafx.scene.control.Label;
 import engine.Engine;
 
@@ -8,12 +9,12 @@ import java.util.List;
 public class SpeechPhrase extends TextAnimationPhrase {
 
     private String speaker;
-    private Label characterNameLabel;
+    private Label speakerNameLabel;
 
     public SpeechPhrase(List<String> args) {
         speaker = args.get(0);
         text = args.get(1);
-        characterNameLabel = Engine.getCharacterNameLabel();
+        speakerNameLabel = VNEngineUI.getSpeakerNamePane().getLabel();
         if(args.size() == 3) {
             sfxFileName = args.get(2);
             playAudio = true;
@@ -24,7 +25,7 @@ public class SpeechPhrase extends TextAnimationPhrase {
     public void execute() {
         super.execute();
         textHistoryLabel.setText(speaker+": "+textHistoryLabel.getText());
-        characterNameLabel.setText(speaker);
+        speakerNameLabel.setText(speaker);
         characterNamePane.setVisible(true);
         Engine.pauseExecution();
     }

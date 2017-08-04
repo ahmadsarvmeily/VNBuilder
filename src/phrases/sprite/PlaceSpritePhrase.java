@@ -1,5 +1,6 @@
 package phrases.sprite;
 
+import engine.ui.VNEngineUI;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import engine.Directories;
@@ -13,7 +14,6 @@ import java.util.Map;
 public class PlaceSpritePhrase extends SpritePhrase {
 
     private String spriteName;
-    private Map<String,ImageView> spriteMap;
     private double x, y, scale;
 
     public PlaceSpritePhrase(List<String> args) {
@@ -27,7 +27,6 @@ public class PlaceSpritePhrase extends SpritePhrase {
         }
         spriteView = new ImageView(sprite);
         spriteName = args.get(1);
-        spriteMap = Engine.getSpriteMap();
         x = Double.valueOf(args.get(2));
         y = Double.valueOf(args.get(3));
         scale = Double.valueOf(args.get(4));
@@ -41,6 +40,6 @@ public class PlaceSpritePhrase extends SpritePhrase {
         spriteView.setScaleY(scale);
         int index = spritePane.getChildren().indexOf(textPane);
         spritePane.getChildren().add(index,spriteView);
-        spriteMap.put(spriteName,spriteView);
+        VNEngineUI.getSpritePane().addSprite(spriteName,spriteView);
     }
 }

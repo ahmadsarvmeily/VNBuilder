@@ -2,6 +2,7 @@ package phrases.animation.text;
 
 import animation.TextAnimator;
 import audio.SfxPlayer;
+import engine.ui.VNEngineUI;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
@@ -21,19 +22,17 @@ public abstract class TextAnimationPhrase extends Phrase {
     private SfxPlayer sfxPlayer;
     private String sfxDir;
     Pane characterNamePane;
-    private VBox textHistoryContentPane;
+    private VBox textLogContentPane;
     Label textHistoryLabel;
-    private ScrollPane textHistoryScrollPane;
 
     TextAnimationPhrase() {
         playAudio = false;
         textAnimator = TextAnimator.getInstance();
         sfxPlayer = SfxPlayer.getInstance();
         sfxDir = Directories.getSfxDir();
-        characterNamePane = Engine.getCharacterNamePane();
-        textLabel = Engine.getTextLabel();
-        textHistoryContentPane = Engine.getTextLogContentPane();
-        textHistoryScrollPane = Engine.getTextLogScrollPane();
+        characterNamePane = VNEngineUI.getSpeakerNamePane();
+        textLabel = VNEngineUI.getTextPane().getLabel();
+        textLogContentPane = VNEngineUI.getTextLogPane().getContentPane();
     }
 
     @Override
@@ -44,7 +43,7 @@ public abstract class TextAnimationPhrase extends Phrase {
         textHistoryLabel.setWrapText(true);
         textHistoryLabel.setTextFill(Color.color(0.8,0.8,0.8));
         textHistoryLabel.setFont(Font.font("Arial Narrow",32));
-        textHistoryContentPane.getChildren().add(textHistoryLabel);
+        textLogContentPane.getChildren().add(textHistoryLabel);
 
         if(playAudio) {
             sfxPlayer.play(sfxDir + "/" + sfxFileName);

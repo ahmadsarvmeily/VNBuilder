@@ -1,6 +1,6 @@
 package phrases.sprite;
 
-import engine.Engine;
+import engine.ui.VNEngineUI;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public class RemoveSpritePhrase extends SpritePhrase {
 
     public RemoveSpritePhrase(List<String> args) {
         String spriteName = args.get(0);
-        spriteView = Engine.getSprite(spriteName);
+        spriteView = VNEngineUI.getSpritePane().getSprite(spriteName);
     }
 
     @Override

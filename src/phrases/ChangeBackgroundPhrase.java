@@ -1,5 +1,6 @@
 package phrases;
 
+import engine.ui.VNEngineUI;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import engine.Directories;
@@ -15,7 +16,7 @@ public class ChangeBackgroundPhrase extends Phrase {
     private Image image;
 
     ChangeBackgroundPhrase(List<String> args) {
-        backgroundView = Engine.getBackgroundView();
+        backgroundView = VNEngineUI.getBackgroundView();
         String bgDir = Directories.getBgDir();
         String bgFileName = args.get(0);
         try {
