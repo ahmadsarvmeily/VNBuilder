@@ -1,7 +1,7 @@
 package phrases.audio;
 
 import audio.SfxPlayer;
-import main.Directories;
+import engine.Directories;
 import phrases.Phrase;
 
 import java.util.List;

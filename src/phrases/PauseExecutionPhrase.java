@@ -1,6 +1,6 @@
 package phrases;
 
-import main.Engine;
+import engine.Engine;
 
 public class PauseExecutionPhrase extends Phrase {
 

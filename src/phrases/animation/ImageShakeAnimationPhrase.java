@@ -2,7 +2,7 @@ package phrases.animation;
 
 import animation.ImageAnimator;
 import javafx.scene.image.ImageView;
-import main.Engine;
+import engine.Engine;
 import phrases.Phrase;
 
 public class ImageShakeAnimationPhrase extends Phrase {

@@ -1,4 +1,4 @@
-package main;
+package novel;
 
 import phrases.Phrase;
 
@@ -8,14 +8,14 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-class Novel {
+public class Novel {
 
     private File file;
     private String title;
     private Queue<String> lines;
     private boolean pauseExecution;
 
-    Novel(String fileName) {
+    public Novel(String fileName) {
         file = new File(fileName);
         lines = new LinkedList<>();
         load();
@@ -43,7 +43,7 @@ class Novel {
 
     }
 
-    void advance() {
+    public void advance() {
         pauseExecution = false;
         while(hasLines() && !pauseExecution) {
             String line = nextLine();
@@ -62,11 +62,11 @@ class Novel {
         return lines.remove();
     }
 
-    String getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    void pauseExecution() {
+    public void pauseExecution() {
         pauseExecution = true;
     }
 }

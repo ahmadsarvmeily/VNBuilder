@@ -1,4 +1,4 @@
-package main;
+package engine;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -12,11 +12,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import novel.Novel;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static main.Directories.testStructure;
+import static engine.Directories.testStructure;
 
 public class Engine extends Application {
 

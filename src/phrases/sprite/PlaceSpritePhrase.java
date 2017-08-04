@@ -2,8 +2,8 @@ package phrases.sprite;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import main.Directories;
-import main.Engine;
+import engine.Directories;
+import engine.Engine;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

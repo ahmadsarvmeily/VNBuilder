@@ -2,7 +2,7 @@ package phrases.sprite;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import main.Engine;
+import engine.Engine;
 import phrases.Phrase;
 
 abstract class SpritePhrase extends Phrase {

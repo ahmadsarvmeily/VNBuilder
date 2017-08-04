@@ -1,6 +1,6 @@
 package phrases.sprite;
 
-import main.Engine;
+import engine.Engine;
 
 import java.util.List;
 

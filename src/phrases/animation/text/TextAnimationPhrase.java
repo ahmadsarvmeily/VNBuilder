@@ -8,8 +8,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import main.Directories;
-import main.Engine;
+import engine.Directories;
+import engine.Engine;
 import phrases.Phrase;
 
 public abstract class TextAnimationPhrase extends Phrase {

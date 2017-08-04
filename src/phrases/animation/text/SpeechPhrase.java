@@ -1,7 +1,7 @@
 package phrases.animation.text;
 
 import javafx.scene.control.Label;
-import main.Engine;
+import engine.Engine;
 
 import java.util.List;
 
