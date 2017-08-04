@@ -23,6 +23,7 @@ public class SpeechPhrase extends TextAnimationPhrase {
     @Override
     public void execute() {
         super.execute();
+        textHistoryLabel.setText(speaker+": "+textHistoryLabel.getText());
         characterNameLabel.setText(speaker);
         characterNamePane.setVisible(true);
         Engine.pauseExecution();

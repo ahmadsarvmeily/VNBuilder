@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -21,10 +22,13 @@ public class Engine extends Application {
 
     private static Map<String,ImageView> spriteMap;
     private static Pane backgroundPane, spritePane, characterNamePane;
-    private static StackPane textPane;
+    private static StackPane textPane, textLogPane;
+    private static ScrollPane textLogScrollPane;
+    private static VBox textLogContentPane;
     private static Label textLabel, characterNameLabel;
     private static ImageView backgroundView;
     private static Novel novel;
+    private static boolean gameIsPaused;
 
     public static void main(String[] args) {
         launch(args);
@@ -34,6 +38,7 @@ public class Engine extends Application {
     public void start(Stage primaryStage) throws Exception {
         testStructure();
 
+        gameIsPaused = false;
         spriteMap = new HashMap<>();
 
         StackPane rootPane = new StackPane();
@@ -43,6 +48,7 @@ public class Engine extends Application {
         setupSpritePane();
         setupTextPane();
         setupCharacterNamePane();
+        setupTextLogPane();
         rootPane.getChildren().add(backgroundPane);
 
         Scene gameScene = new Scene(rootPane, 1600,900);
@@ -54,15 +60,32 @@ public class Engine extends Application {
         primaryStage.setOnCloseRequest(e -> System.exit(0));
         primaryStage.show();
 
-        gameScene.setOnMouseClicked(event -> novel.advance());
+        gameScene.setOnMouseClicked(event -> requestNovelAdvance());
 
         gameScene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case DOWN: novel.advance(); break;
+                case DOWN: requestNovelAdvance(); break;
 
-                case UP: //TODO: show text history
+                case UP: showTextLog(); break;
+
+                case ESCAPE: hideTextLog();
             }
         });
+    }
+
+    private void requestNovelAdvance() {
+        if(!gameIsPaused) novel.advance();
+    }
+
+    private void showTextLog() {
+        gameIsPaused = true;
+        textLogPane.setVisible(true);
+        textLogContentPane.requestFocus();
+    }
+
+    private void hideTextLog() {
+        gameIsPaused = false;
+        textLogPane.setVisible(false);
     }
 
     private void setupTextPane() {
@@ -85,7 +108,7 @@ public class Engine extends Application {
         characterNameLabel.setPadding(new Insets(0,25,0,25));
         characterNameLabel.setTextFill(Color.WHITE);
         characterNamePane = new Pane(characterNameLabel);
-        characterNamePane.setBackground(new Background(new BackgroundFill(Color.color(0,0,0,0.7), new CornerRadii(10), new Insets(0,0,0,0))));
+        characterNamePane.setBackground(new Background(new BackgroundFill(Color.color(0,0,0,0.7), new CornerRadii(10), Insets.EMPTY)));
         characterNamePane.setLayoutX(5);
         characterNamePane.setLayoutY(705);
         characterNamePane.setVisible(false);
@@ -104,6 +127,24 @@ public class Engine extends Application {
         backgroundPane.getChildren().add(spritePane);
     }
 
+    private void setupTextLogPane() {
+        textLogPane = new StackPane();
+        textLogContentPane = new VBox(20);
+        textLogScrollPane = new ScrollPane(textLogContentPane);
+        textLogScrollPane.vvalueProperty().bind(textLogContentPane.heightProperty());
+        textLogScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        textLogScrollPane.setPannable(true);
+        textLogScrollPane.setStyle("-fx-background: transparent;\n -fx-background-color: transparent");
+        textLogScrollPane.setPadding(new Insets(40,40,40,40));
+        textLogPane.getChildren().add(textLogScrollPane);
+        textLogPane.setBackground(new Background(new BackgroundFill(Color.color(0,0,0,0.7), new CornerRadii(10), Insets.EMPTY)));
+        textLogPane.setLayoutX(40);
+        textLogPane.setLayoutY(-10);
+        textLogPane.setPrefSize(1520,710);
+        textLogPane.setVisible(false);
+        spritePane.getChildren().add(textLogPane);
+    }
+
     public static ImageView getBackgroundView() {
         return backgroundView;
     }
@@ -118,6 +159,14 @@ public class Engine extends Application {
 
     public static StackPane getTextPane() {
         return textPane;
+    }
+
+    public static VBox getTextLogContentPane() {
+        return textLogContentPane;
+    }
+
+    public static ScrollPane getTextLogScrollPane() {
+        return textLogScrollPane;
     }
 
     public static ImageView getSprite(String spriteName) {
