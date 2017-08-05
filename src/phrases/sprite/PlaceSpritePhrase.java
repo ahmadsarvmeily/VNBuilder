@@ -1,5 +1,6 @@
 package phrases.sprite;
 
+import animation.ImageAnimator;
 import engine.ui.VNEngineUI;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,5 +42,7 @@ public class PlaceSpritePhrase extends SpritePhrase {
         int index = spritePane.getChildren().indexOf(textPane);
         spritePane.getChildren().add(index,spriteView);
         VNEngineUI.getSpritePane().addSprite(spriteName,spriteView);
+        ImageAnimator animator = ImageAnimator.getInstance();
+        animator.fadeIn(spriteView);
     }
 }
