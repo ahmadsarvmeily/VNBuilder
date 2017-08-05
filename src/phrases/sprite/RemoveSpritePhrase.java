@@ -1,5 +1,6 @@
 package phrases.sprite;
 
+import animation.ImageAnimator;
 import engine.ui.VNEngineUI;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class RemoveSpritePhrase extends SpritePhrase {
 
     @Override
     public void execute() {
-        spritePane.getChildren().remove(spriteView);
+        ImageAnimator animator = ImageAnimator.getInstance();
+        animator.fadeOut(spriteView).setOnFinished(event -> spritePane.getChildren().remove(spriteView));
     }
 }
