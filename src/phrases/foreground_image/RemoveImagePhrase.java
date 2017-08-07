@@ -1,6 +1,6 @@
 package phrases.foreground_image;
 
-import animation.ImageAnimator;
+import animation.FadeAnimator;
 import engine.ui.VNEngineUI;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class RemoveImagePhrase extends ImagePhrase {
 
     @Override
     public void execute() {
-        ImageAnimator animator = ImageAnimator.getInstance();
+        FadeAnimator animator = FadeAnimator.getInstance();
         animator.fadeOut(imageView).setOnFinished(event -> foregroundPane.getChildren().remove(imageView));
     }
 }

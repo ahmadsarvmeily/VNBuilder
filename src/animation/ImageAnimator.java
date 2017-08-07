@@ -1,6 +1,5 @@
 package animation;
 
-import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.LineTo;
@@ -26,21 +25,6 @@ public class ImageAnimator extends VNAnimator {
         Path path = new Path(origin,topRight,bottomLeft,topRight,bottomLeft,backToOrigin);
         currentAnimation = new PathTransition(Duration.millis(400),path,imageView);
         currentAnimation.play();
-    }
-
-    public void fadeIn(ImageView imageView) {
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(750),imageView);
-        fadeTransition.setFromValue(0);
-        fadeTransition.setToValue(1);
-        fadeTransition.play();
-    }
-
-    public FadeTransition fadeOut(ImageView imageView) {
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(750),imageView);
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
-        fadeTransition.play();
-        return fadeTransition;
     }
 
     public static ImageAnimator getInstance() {

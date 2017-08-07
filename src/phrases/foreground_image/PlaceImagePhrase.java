@@ -1,6 +1,6 @@
 package phrases.foreground_image;
 
-import animation.ImageAnimator;
+import animation.FadeAnimator;
 import engine.ui.VNEngineUI;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,7 +40,7 @@ public class PlaceImagePhrase extends ImagePhrase {
         int index = foregroundPane.getChildren().indexOf(textPane);
         foregroundPane.getChildren().add(index, imageView);
         VNEngineUI.getForegroundPane().getImage(imageName, imageView);
-        ImageAnimator animator = ImageAnimator.getInstance();
+        FadeAnimator animator = FadeAnimator.getInstance();
         animator.fadeIn(imageView);
     }
 }
