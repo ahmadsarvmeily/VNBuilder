@@ -7,8 +7,8 @@ public abstract class Directories {
     private static final String novelDir = "Novel";
     private static final String novelFile = novelDir + "/novel.vnb";
     private static final String assetsDir = novelDir + "/assets";
-    private static final String bgDir = assetsDir + "/bg";
-    private static final String spriteDir = assetsDir + "/sprites";
+    private static final String backgroundImageDir = assetsDir + "/bg_image";
+    private static final String foregroundImageDir = assetsDir + "/fg_image";
     private static final String musicDir = assetsDir + "/music";
     private static final String sfxDir = assetsDir + "/sfx";
 
@@ -16,12 +16,12 @@ public abstract class Directories {
         return novelFile;
     }
 
-    public static String getBgDir() {
-        return bgDir;
+    public static String getBackgroundImageDir() {
+        return backgroundImageDir;
     }
 
-    public static String getSpriteDir() {
-        return spriteDir;
+    public static String getForegroundImageDir() {
+        return foregroundImageDir;
     }
 
     public static String getSfxDir() {
@@ -36,8 +36,8 @@ public abstract class Directories {
         StructureTest.dirExists(novelDir);
         StructureTest.fileExists(novelFile);
         StructureTest.dirExists(assetsDir);
-        StructureTest.dirExists(bgDir);
-        StructureTest.dirExists(spriteDir);
+        StructureTest.dirExists(backgroundImageDir);
+        StructureTest.dirExists(foregroundImageDir);
         StructureTest.dirExists(musicDir);
         StructureTest.dirExists(sfxDir);
     }

@@ -17,7 +17,7 @@ public class ChangeBackgroundPhrase extends Phrase {
 
     ChangeBackgroundPhrase(List<String> args) {
         backgroundView = VNEngineUI.getBackgroundView();
-        String bgDir = Directories.getBgDir();
+        String bgDir = Directories.getBackgroundImageDir();
         String bgFileName = args.get(0);
         try {
             image = new Image(new FileInputStream(bgDir + "/" + bgFileName));
