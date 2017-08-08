@@ -12,6 +12,7 @@ public abstract class VNEngineUI {
     private static VNSpeakerNamePane speakerNamePane;
     private static VNForegroundPane foregroundPane;
     private static VNTextPane textPane;
+    private static VNActPane actPane;
 
     public static void setup(Pane rootPane) {
         rootPane.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -20,7 +21,8 @@ public abstract class VNEngineUI {
         textPane = new VNTextPane();
         speakerNamePane = new VNSpeakerNamePane();
         textLogPane = new VNTextLogPane();
-        foregroundPane = new VNForegroundPane(textPane,speakerNamePane,textLogPane);
+        actPane = new VNActPane();
+        foregroundPane = new VNForegroundPane(textPane,speakerNamePane,textLogPane,actPane);
         backgroundPane.getChildren().add(foregroundPane);
         rootPane.getChildren().add(backgroundPane);
     }
@@ -43,5 +45,9 @@ public abstract class VNEngineUI {
 
     public static VNTextPane getTextPane() {
         return textPane;
+    }
+
+    public static VNActPane getActPane() {
+        return actPane;
     }
 }
