@@ -1,5 +1,7 @@
 package phrases;
 
+import phrases.act.ActPhrase;
+import phrases.act.BeginActPhrase;
 import phrases.animation.*;
 import phrases.animation.text.*;
 import phrases.audio.*;
@@ -45,6 +47,10 @@ public abstract class Phrase {
             case "speech": return new SpeechPhrase(args);
 
             case "bg": return new ChangeBackgroundPhrase(args);
+
+            case "act": return new ActPhrase(args);
+
+            case "begin act": return new BeginActPhrase();
 
             default: return null;
         }
