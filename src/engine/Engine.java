@@ -41,24 +41,17 @@ public class Engine extends Application {
             switch (event.getCode()) {
                 case DOWN: requestNovelAdvance(); break;
 
-                case UP: showTextLog(); break;
-
-                case ESCAPE: hideTextLog();
+                case L: toggleTextLog(); break;
             }
         });
     }
 
-    private void showTextLog() {
-        gameIsPaused = true;
+    private void toggleTextLog() {
+        gameIsPaused = !gameIsPaused;
         VNTextLogPane textLogPane = VNEngineUI.getTextLogPane();
-        textLogPane.setVisible(true);
-        textLogPane.getContentPane().requestFocus();
-    }
-
-    private void hideTextLog() {
-        gameIsPaused = false;
-        VNTextLogPane textLogPane = VNEngineUI.getTextLogPane();
-        textLogPane.setVisible(false);
+        textLogPane.setVisible(gameIsPaused);
+        if(gameIsPaused)
+            textLogPane.getContentPane().requestFocus();
     }
 
     private void requestNovelAdvance() {
