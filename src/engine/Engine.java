@@ -42,6 +42,8 @@ public class Engine extends Application {
                 case DOWN: requestNovelAdvance(); break;
 
                 case L: toggleTextLog(); break;
+
+                case ESCAPE: toggleConfig();
             }
         });
     }
@@ -52,6 +54,12 @@ public class Engine extends Application {
         textLogPane.setVisible(gameIsPaused);
         if(gameIsPaused)
             textLogPane.getContentPane().requestFocus();
+    }
+
+    private void toggleConfig() {
+        gameIsPaused = !gameIsPaused;
+        VNConfigPane configPane = VNEngineUI.getConfigPane();
+        configPane.setVisible(!configPane.isVisible());
     }
 
     private void requestNovelAdvance() {
