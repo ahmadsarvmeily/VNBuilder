@@ -16,6 +16,7 @@ public class MusicPlayer extends VNAudioPlayer {
             fadeInto(path,5000);
         else {
             clip = getClipFromPath(path);
+            setVolume(volume);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
     }
