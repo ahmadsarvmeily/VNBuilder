@@ -1,6 +1,7 @@
 package phrases.animation.text;
 
 import animation.TextAnimator;
+import engine.Engine;
 import engine.ui.VNEngineUI;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -31,7 +32,10 @@ public abstract class TextAnimationPhrase extends Phrase {
 
     @Override
     public void execute() {
-        textAnimator.animate(textLabel,text);
+        if(Engine.getTextAnimationEnabled()) {
+            textAnimator.animate(textLabel, text);
+        } else textLabel.setText(text);
+
         textHistoryLabel = new Label(text);
         textHistoryLabel.setMaxWidth(1400);
         textHistoryLabel.setWrapText(true);
