@@ -33,7 +33,7 @@ public abstract class TextAnimationPhrase extends Phrase {
     @Override
     public void execute() {
         if(Engine.getTextAnimationEnabled()) {
-            textAnimator.animate(textLabel, text);
+            textAnimator.animate(textLabel, text, Engine.getTextAnimationSpeed());
         } else textLabel.setText(text);
 
         textHistoryLabel = new Label(text);
