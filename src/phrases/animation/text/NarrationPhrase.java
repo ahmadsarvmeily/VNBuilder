@@ -5,7 +5,7 @@ import engine.Engine;
 
 import java.util.List;
 
-public class NarrationPhrase extends TextAnimationPhrase {
+public class NarrationPhrase extends TextPhrase {
 
     public NarrationPhrase(List<String> args) {
         text = args.get(0);

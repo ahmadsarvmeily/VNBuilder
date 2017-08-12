@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 import engine.Directories;
 import phrases.Phrase;
 
-public abstract class TextAnimationPhrase extends Phrase {
+public abstract class TextPhrase extends Phrase {
 
     private TextAnimator textAnimator;
     private Label textLabel;
@@ -21,7 +21,7 @@ public abstract class TextAnimationPhrase extends Phrase {
     private VBox textLogContentPane;
     Label textHistoryLabel;
 
-    TextAnimationPhrase() {
+    TextPhrase() {
         playAudio = false;
         textAnimator = TextAnimator.getInstance();
         sfxDir = Directories.getSfxDir();
