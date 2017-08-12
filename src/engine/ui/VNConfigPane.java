@@ -3,6 +3,7 @@ package engine.ui;
 import audio.MusicPlayer;
 import audio.SfxPlayer;
 import audio.SpeechPlayer;
+import engine.Engine;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
@@ -40,7 +41,6 @@ public class VNConfigPane extends GridPane {
 
     private void setupTextConfigPane() {
         GridPane gridPane = new GridPane();
-        gridPane.setDisable(true);
         gridPane.setPadding(new Insets(40));
         gridPane.setHgap(50);
         gridPane.setVgap(50);
@@ -49,10 +49,11 @@ public class VNConfigPane extends GridPane {
         animationToggleLabel.setFont(Font.font("Arial", FontWeight.BOLD,20));
         animationToggleLabel.setTextFill(Color.WHITE);
         ToggleSwitch animationToggleSwitch = new ToggleSwitch(true);
+        animationToggleSwitch.switchOnProperty().addListener((observable, oldValue, newValue) -> Engine.toggleTextAnimationEnabled());
         GridPane.setHalignment(animationToggleSwitch, HPos.CENTER);
         gridPane.add(animationToggleLabel,0,0);
         gridPane.add(animationToggleSwitch,1,0);
-        Slider animationSpeedSlider = new Slider(0,100,50);
+        Slider animationSpeedSlider = new Slider(0,1,0.5);
 
         setupSliderRow(animationSpeedSlider,gridPane,1,"Animation speed");
 
