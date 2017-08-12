@@ -13,6 +13,7 @@ public class Engine extends Application {
 
     private static Novel novel;
     private static boolean gameIsPaused, textAnimationEnabled;
+    private static float textAnimationSpeed = 0.03f;
 
     public static void main(String[] args) {
         launch(args);
@@ -77,5 +78,13 @@ public class Engine extends Application {
 
     public static boolean getTextAnimationEnabled() {
         return textAnimationEnabled;
+    }
+
+    public static void setTextAnimationSpeed(float speed) {
+        textAnimationSpeed = speed;
+    }
+
+    public static float getTextAnimationSpeed() {
+        return textAnimationSpeed;
     }
 }
