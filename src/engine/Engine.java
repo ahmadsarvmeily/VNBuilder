@@ -12,7 +12,7 @@ import static engine.Directories.testStructure;
 public class Engine extends Application {
 
     private static Novel novel;
-    private static boolean gameIsPaused;
+    private static boolean gameIsPaused, textAnimationEnabled;
 
     public static void main(String[] args) {
         launch(args);
@@ -23,6 +23,7 @@ public class Engine extends Application {
         testStructure();
 
         gameIsPaused = false;
+        textAnimationEnabled = true;
 
         StackPane rootPane = new StackPane();
         VNEngineUI.setup(rootPane);
@@ -68,5 +69,13 @@ public class Engine extends Application {
 
     public static void pauseExecution() {
         novel.pauseExecution();
+    }
+
+    public static void toggleTextAnimationEnabled() {
+        textAnimationEnabled = !textAnimationEnabled;
+    }
+
+    public static boolean getTextAnimationEnabled() {
+        return textAnimationEnabled;
     }
 }
