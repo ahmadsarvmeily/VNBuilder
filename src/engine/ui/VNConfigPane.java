@@ -53,7 +53,9 @@ public class VNConfigPane extends GridPane {
         GridPane.setHalignment(animationToggleSwitch, HPos.CENTER);
         gridPane.add(animationToggleLabel,0,0);
         gridPane.add(animationToggleSwitch,1,0);
-        Slider animationSpeedSlider = new Slider(0,1,0.5);
+        Slider animationSpeedSlider = new Slider(0.01,0.05,0.03);
+        animationSpeedSlider.valueProperty().addListener((observable, oldValue, newValue)
+                -> Engine.setTextAnimationSpeed(newValue.floatValue()));
 
         setupSliderRow(animationSpeedSlider,gridPane,1,"Animation speed");
 
