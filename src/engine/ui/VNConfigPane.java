@@ -1,5 +1,8 @@
 package engine.ui;
 
+import audio.MusicPlayer;
+import audio.SfxPlayer;
+import audio.SpeechPlayer;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
@@ -9,6 +12,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VNConfigPane extends GridPane {
 
@@ -34,6 +40,7 @@ public class VNConfigPane extends GridPane {
 
     private void setupTextConfigPane() {
         GridPane gridPane = new GridPane();
+        gridPane.setDisable(true);
         gridPane.setPadding(new Insets(40));
         gridPane.setHgap(50);
         gridPane.setVgap(50);
@@ -45,8 +52,9 @@ public class VNConfigPane extends GridPane {
         GridPane.setHalignment(animationToggleSwitch, HPos.CENTER);
         gridPane.add(animationToggleLabel,0,0);
         gridPane.add(animationToggleSwitch,1,0);
+        Slider animationSpeedSlider = new Slider(0,100,50);
 
-        setupSliderRow(gridPane,1,"Animation speed",0,100,50);
+        setupSliderRow(animationSpeedSlider,gridPane,1,"Animation speed");
 
         textConfigPane.getChildren().add(gridPane);
     }
@@ -57,16 +65,42 @@ public class VNConfigPane extends GridPane {
         gridPane.setHgap(50);
         gridPane.setVgap(50);
 
-        setupSliderRow(gridPane,0,"Master volume",0,100,50);
-        setupSliderRow(gridPane,1,"BGM",0,100,50);
-        setupSliderRow(gridPane,2,"Speech",0,100,50);
-        setupSliderRow(gridPane,3,"SFX",0,100,50);
+        Slider masterSlider = new Slider(0,1,0.5);
+
+        Slider bgmSlider = new Slider(0,1,0.5);
+        Slider speechSlider = new Slider(0,1,0.5);
+        Slider sfxSlider = new Slider(0,1,0.5);
+
+        List<Slider> sliders = new ArrayList<>();
+        sliders.add(bgmSlider);
+        sliders.add(speechSlider);
+        sliders.add(sfxSlider);
+
+        bgmSlider.valueProperty().addListener((observable, oldValue, newValue)
+                -> MusicPlayer.getInstance().setVolume(newValue.floatValue()));
+        speechSlider.valueProperty().addListener((observable, oldValue, newValue)
+                -> SpeechPlayer.getInstance().setVolume(newValue.floatValue()));
+        sfxSlider.valueProperty().addListener((observable, oldValue, newValue)
+                -> SfxPlayer.getInstance().setVolume(newValue.floatValue()));
+
+        masterSlider.valueProperty().addListener((observable, oldValue, newValue) -> sliders.forEach(slider -> {
+            if(slider.getValue() < newValue.doubleValue()) {
+                double dValue = newValue.doubleValue() - oldValue.doubleValue();
+                slider.setValue(slider.getValue()+slider.getValue()*dValue);
+            }
+        }));
+
+        setupSliderRow(masterSlider, gridPane,0,"Master volume");
+        setupSliderRow(bgmSlider, gridPane,1,"BGM");
+        setupSliderRow(speechSlider, gridPane,2,"Speech");
+        setupSliderRow(sfxSlider, gridPane,3,"SFX");
 
         audioConfigPane.getChildren().add(gridPane);
     }
 
     private void setVideoConfigPane() {
         GridPane gridPane = new GridPane();
+        gridPane.setDisable(true);
         gridPane.setPadding(new Insets(40));
         gridPane.setHgap(50);
         gridPane.setVgap(50);
@@ -91,12 +125,11 @@ public class VNConfigPane extends GridPane {
         videoConfigPane.getChildren().add(gridPane);
     }
 
-    private void setupSliderRow(GridPane parent, int row, String text, int sliderMin, int sliderMax, int sliderValue) {
-        Label animationSpeedLabel = new Label(text);
-        animationSpeedLabel.setFont(Font.font("Arial", FontWeight.BOLD,20));
-        animationSpeedLabel.setTextFill(Color.WHITE);
-        Slider animationSpeedSlider = new Slider(sliderMin,sliderMax,sliderValue);
-        parent.add(animationSpeedLabel,0,row);
-        parent.add(animationSpeedSlider,1,row);
+    private void setupSliderRow(Slider slider, GridPane parent, int row, String text) {
+        Label label = new Label(text);
+        label.setFont(Font.font("Arial", FontWeight.BOLD,20));
+        label.setTextFill(Color.WHITE);
+        parent.add(label,0,row);
+        parent.add(slider,1,row);
     }
 }
