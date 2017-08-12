@@ -1,5 +1,6 @@
 package phrases.animation.text;
 
+import audio.SfxPlayer;
 import engine.Engine;
 
 import java.util.List;
@@ -18,6 +19,11 @@ public class NarrationPhrase extends TextAnimationPhrase {
     public void execute() {
         super.execute();
         characterNamePane.setVisible(false);
+
+        if(playAudio) {
+            SfxPlayer.getInstance().play(sfxDir + "/" + sfxFileName);
+        }
+
         Engine.pauseExecution();
     }
 }

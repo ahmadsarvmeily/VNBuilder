@@ -12,12 +12,12 @@ public class TextAnimator extends VNAnimator {
         textAnimator = this;
     }
 
-    public void animate(Label lbl, String content) {
+    public void animate(Label lbl, String content, float speed) {
         if(currentAnimation != null) currentAnimation.stop();
 
         currentAnimation = new Transition() {
             {
-                setCycleDuration(Duration.millis(content.length()*20));
+                setCycleDuration(Duration.millis(content.length()/speed));
             }
             @Override
             protected void interpolate(double frac) {

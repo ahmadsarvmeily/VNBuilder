@@ -12,7 +12,8 @@ import static engine.Directories.testStructure;
 public class Engine extends Application {
 
     private static Novel novel;
-    private static boolean gameIsPaused;
+    private static boolean gameIsPaused, textAnimationEnabled;
+    private static float textAnimationSpeed = 0.03f;
 
     public static void main(String[] args) {
         launch(args);
@@ -23,6 +24,7 @@ public class Engine extends Application {
         testStructure();
 
         gameIsPaused = false;
+        textAnimationEnabled = true;
 
         StackPane rootPane = new StackPane();
         VNEngineUI.setup(rootPane);
@@ -41,24 +43,25 @@ public class Engine extends Application {
             switch (event.getCode()) {
                 case DOWN: requestNovelAdvance(); break;
 
-                case UP: showTextLog(); break;
+                case L: toggleTextLog(); break;
 
-                case ESCAPE: hideTextLog();
+                case ESCAPE: toggleConfig();
             }
         });
     }
 
-    private void showTextLog() {
-        gameIsPaused = true;
+    private void toggleTextLog() {
+        gameIsPaused = !gameIsPaused;
         VNTextLogPane textLogPane = VNEngineUI.getTextLogPane();
-        textLogPane.setVisible(true);
-        textLogPane.getContentPane().requestFocus();
+        textLogPane.setVisible(gameIsPaused);
+        if(gameIsPaused)
+            textLogPane.getContentPane().requestFocus();
     }
 
-    private void hideTextLog() {
-        gameIsPaused = false;
-        VNTextLogPane textLogPane = VNEngineUI.getTextLogPane();
-        textLogPane.setVisible(false);
+    private void toggleConfig() {
+        gameIsPaused = !gameIsPaused;
+        VNConfigPane configPane = VNEngineUI.getConfigPane();
+        configPane.setVisible(!configPane.isVisible());
     }
 
     private void requestNovelAdvance() {
@@ -67,5 +70,21 @@ public class Engine extends Application {
 
     public static void pauseExecution() {
         novel.pauseExecution();
+    }
+
+    public static void toggleTextAnimationEnabled() {
+        textAnimationEnabled = !textAnimationEnabled;
+    }
+
+    public static boolean getTextAnimationEnabled() {
+        return textAnimationEnabled;
+    }
+
+    public static void setTextAnimationSpeed(float speed) {
+        textAnimationSpeed = speed;
+    }
+
+    public static float getTextAnimationSpeed() {
+        return textAnimationSpeed;
     }
 }
