@@ -32,6 +32,8 @@ public abstract class TextPhrase extends Phrase {
 
     @Override
     public void execute() {
+        VNEngineUI.getTextPane().setVisible(true);
+
         if(Engine.getTextAnimationEnabled()) {
             textAnimator.animate(textLabel, text, Engine.getTextAnimationSpeed());
         } else textLabel.setText(text);
