@@ -7,7 +7,7 @@ import engine.Engine;
 
 import java.util.List;
 
-public class SpeechPhrase extends TextAnimationPhrase {
+public class SpeechPhrase extends TextPhrase {
 
     private String speaker;
     private Label speakerNameLabel;
