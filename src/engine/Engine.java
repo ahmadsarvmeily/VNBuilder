@@ -12,7 +12,7 @@ import static engine.Directories.testStructure;
 public class Engine extends Application {
 
     private static Novel novel;
-    private static boolean gameIsPaused, textAnimationEnabled;
+    private static boolean gameIsPaused, gameIsRunning, textAnimationEnabled;
     private static float textAnimationSpeed = 0.03f;
 
     public static void main(String[] args) {
@@ -24,6 +24,7 @@ public class Engine extends Application {
         testStructure();
 
         gameIsPaused = false;
+        gameIsRunning = false;
         textAnimationEnabled = true;
 
         StackPane rootPane = new StackPane();
@@ -64,8 +65,13 @@ public class Engine extends Application {
         configPane.setVisible(!configPane.isVisible());
     }
 
-    private void requestNovelAdvance() {
-        if(!gameIsPaused) novel.advance();
+    private static void requestNovelAdvance() {
+        if(!gameIsPaused && gameIsRunning) novel.advance();
+    }
+
+    public static void startGame() {
+        gameIsRunning = true;
+        requestNovelAdvance();
     }
 
     public static void pauseExecution() {
