@@ -24,6 +24,7 @@ public class FadeAnimator extends VNAnimator {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(750),node);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
+        fadeTransition.setOnFinished(event -> node.setVisible(false));
         fadeTransition.play();
         return fadeTransition;
     }
