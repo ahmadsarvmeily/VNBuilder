@@ -1,24 +1,11 @@
 package audio;
 
-import javax.sound.sampled.Clip;
-
 public class MusicPlayer extends VNAudioPlayer {
 
     private static MusicPlayer musicPlayer;
 
     private MusicPlayer() {
         musicPlayer = this;
-    }
-
-    @Override
-    public void play(String path) {
-        if(clip != null)
-            fadeInto(path,5000);
-        else {
-            clip = getClipFromPath(path);
-            setVolume(volume);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-        }
     }
 
     public void fadeOut() {
