@@ -15,6 +15,6 @@ public class PlayMusicPhrase extends MusicPhrase {
 
     @Override
     public void execute() {
-        musicPlayer.play(musicDir + "/" + musicFileName);
+        musicPlayer.loopContinuously(musicDir + "/" + musicFileName);
     }
 }

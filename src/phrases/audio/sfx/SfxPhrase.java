@@ -1,4 +1,4 @@
-package phrases.audio;
+package phrases.audio.sfx;
 
 import audio.SfxPlayer;
 import engine.Directories;
