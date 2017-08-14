@@ -7,8 +7,8 @@ import java.io.IOException;
 abstract public class VNAudioPlayer {
 
     // 0.0 = silent, 1.0 = full volume
-    float volume = 0.5f;
-    Clip clip;
+    private float volume = 0.5f;
+    private Clip clip;
 
     public void play(String path) {
         if(clip != null)
@@ -18,7 +18,17 @@ abstract public class VNAudioPlayer {
         clip.start();
     }
 
-    static Clip getClipFromPath(String path) {
+    public void loopContinuously(String path) {
+        if(clip != null)
+            fadeInto(path,5000);
+        else {
+            clip = getClipFromPath(path);
+            setVolume(volume);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+    }
+
+    private static Clip getClipFromPath(String path) {
         Clip clip = null;
         try {
             clip = AudioSystem.getClip();
@@ -31,7 +41,7 @@ abstract public class VNAudioPlayer {
         return clip;
     }
 
-    void fadeInto(String path, int durationMillis) {
+    private void fadeInto(String path, int durationMillis) {
         Clip into = getClipFromPath(path);
         new FadeInto(clip,into,durationMillis,volume,Clip.LOOP_CONTINUOUSLY).start();
         clip = into;
