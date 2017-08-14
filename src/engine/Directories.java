@@ -11,6 +11,7 @@ public abstract class Directories {
     private static final String foregroundImageDir = assetsDir + "/fg_image";
     private static final String musicDir = assetsDir + "/music";
     private static final String sfxDir = assetsDir + "/sfx";
+    private static final String ambientSfxDir = assetsDir + "/ambient_sfx";
 
     static String getNovelFile() {
         return novelFile;
@@ -32,6 +33,10 @@ public abstract class Directories {
         return musicDir;
     }
 
+    public static String getAmbientSfxDir() {
+        return ambientSfxDir;
+    }
+
     static void testStructure() {
         StructureTest.dirExists(novelDir);
         StructureTest.fileExists(novelFile);
@@ -40,5 +45,6 @@ public abstract class Directories {
         StructureTest.dirExists(foregroundImageDir);
         StructureTest.dirExists(musicDir);
         StructureTest.dirExists(sfxDir);
+        StructureTest.dirExists(ambientSfxDir);
     }
 }
