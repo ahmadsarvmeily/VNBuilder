@@ -54,7 +54,8 @@ public class Engine extends Application {
     }
 
     private void requestToggleTextLog() {
-        if(gameIsRunning && !configMenuIsOpen) {
+        boolean actPaneIsOpen = VNEngineUI.getActPane().isVisible();
+        if(gameIsRunning && !configMenuIsOpen && !actPaneIsOpen) {
             textLogIsOpen = !textLogIsOpen;
             VNTextLogPane textLogPane = VNEngineUI.getTextLogPane();
             textLogPane.setVisible(textLogIsOpen);
@@ -65,7 +66,8 @@ public class Engine extends Application {
     }
 
     private void toggleConfig() {
-        if(gameIsRunning) {
+        boolean actPaneIsOpen = VNEngineUI.getActPane().isVisible();
+        if(gameIsRunning && !actPaneIsOpen) {
             configMenuIsOpen = !configMenuIsOpen;
             VNEngineUI.getConfigPane().setVisible(configMenuIsOpen);
             gameIsPaused = configMenuIsOpen || textLogIsOpen;
