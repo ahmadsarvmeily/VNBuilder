@@ -4,8 +4,9 @@ import phrases.act.ActPhrase;
 import phrases.act.BeginActPhrase;
 import phrases.animation.*;
 import phrases.animation.text.*;
-import phrases.audio.*;
 import phrases.audio.music.*;
+import phrases.audio.sfx.AmbientSfxPhrase;
+import phrases.audio.sfx.SfxPhrase;
 import phrases.foreground_image.*;
 
 import java.util.Arrays;
@@ -51,6 +52,8 @@ public abstract class Phrase {
             case "act": return new ActPhrase(args);
 
             case "begin act": return new BeginActPhrase();
+
+            case "ambient sfx": return new AmbientSfxPhrase(args);
 
             default: return null;
         }
