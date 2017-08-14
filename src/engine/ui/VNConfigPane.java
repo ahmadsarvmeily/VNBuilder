@@ -1,5 +1,6 @@
 package engine.ui;
 
+import audio.AmbientSfxPlayer;
 import audio.MusicPlayer;
 import audio.SfxPlayer;
 import audio.SpeechPlayer;
@@ -73,11 +74,13 @@ public class VNConfigPane extends GridPane {
         Slider bgmSlider = new Slider(0,1,0.5);
         Slider speechSlider = new Slider(0,1,0.5);
         Slider sfxSlider = new Slider(0,1,0.5);
+        Slider ambientSfxSlider = new Slider(0,1,0.5);
 
         List<Slider> sliders = new ArrayList<>();
         sliders.add(bgmSlider);
         sliders.add(speechSlider);
         sliders.add(sfxSlider);
+        sliders.add(ambientSfxSlider);
 
         bgmSlider.valueProperty().addListener((observable, oldValue, newValue)
                 -> MusicPlayer.getInstance().setVolume(newValue.floatValue()));
@@ -85,6 +88,8 @@ public class VNConfigPane extends GridPane {
                 -> SpeechPlayer.getInstance().setVolume(newValue.floatValue()));
         sfxSlider.valueProperty().addListener((observable, oldValue, newValue)
                 -> SfxPlayer.getInstance().setVolume(newValue.floatValue()));
+        ambientSfxSlider.valueProperty().addListener((observable, oldValue, newValue)
+                -> AmbientSfxPlayer.getInstance().setVolume(newValue.floatValue()));
 
         masterSlider.valueProperty().addListener((observable, oldValue, newValue) -> sliders.forEach(slider -> {
             if(slider.getValue() < newValue.doubleValue()) {
@@ -97,6 +102,7 @@ public class VNConfigPane extends GridPane {
         setupSliderRow(bgmSlider, gridPane,1,"BGM");
         setupSliderRow(speechSlider, gridPane,2,"Speech");
         setupSliderRow(sfxSlider, gridPane,3,"SFX");
+        setupSliderRow(ambientSfxSlider, gridPane,4,"Ambient SFX");
 
         audioConfigPane.getChildren().add(gridPane);
     }
