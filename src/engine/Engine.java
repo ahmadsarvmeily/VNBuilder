@@ -12,7 +12,7 @@ import static engine.Directories.testStructure;
 public class Engine extends Application {
 
     private static Novel novel;
-    private static boolean gameIsPaused, gameIsRunning, textAnimationEnabled;
+    private static boolean gameIsPaused, gameIsRunning, textAnimationEnabled, configMenuIsOpen, textLogIsOpen;
     private static float textAnimationSpeed = 0.03f;
 
     public static void main(String[] args) {
@@ -26,6 +26,8 @@ public class Engine extends Application {
         gameIsPaused = false;
         gameIsRunning = false;
         textAnimationEnabled = true;
+        configMenuIsOpen = false;
+        textLogIsOpen = false;
 
         StackPane rootPane = new StackPane();
         VNEngineUI.setup(rootPane);
@@ -44,25 +46,28 @@ public class Engine extends Application {
             switch (event.getCode()) {
                 case DOWN: requestNovelAdvance(); break;
 
-                case L: toggleTextLog(); break;
+                case L: requestToggleTextLog(); break;
 
                 case ESCAPE: toggleConfig();
             }
         });
     }
 
-    private void toggleTextLog() {
-        gameIsPaused = !gameIsPaused;
-        VNTextLogPane textLogPane = VNEngineUI.getTextLogPane();
-        textLogPane.setVisible(gameIsPaused);
-        if(gameIsPaused)
-            textLogPane.getContentPane().requestFocus();
+    private void requestToggleTextLog() {
+        if(!configMenuIsOpen) {
+            textLogIsOpen = !textLogIsOpen;
+            VNTextLogPane textLogPane = VNEngineUI.getTextLogPane();
+            textLogPane.setVisible(textLogIsOpen);
+            gameIsPaused = textLogIsOpen;
+            if (textLogIsOpen)
+                textLogPane.getContentPane().requestFocus();
+        }
     }
 
     private void toggleConfig() {
-        gameIsPaused = !gameIsPaused;
-        VNConfigPane configPane = VNEngineUI.getConfigPane();
-        configPane.setVisible(!configPane.isVisible());
+        configMenuIsOpen = !configMenuIsOpen;
+        VNEngineUI.getConfigPane().setVisible(configMenuIsOpen);
+        gameIsPaused = configMenuIsOpen || textLogIsOpen;
     }
 
     private static void requestNovelAdvance() {
